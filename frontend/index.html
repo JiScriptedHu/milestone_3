@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangalore Housing Value Estimator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+
+<div class="app-wrapper">
+    <div class="card">
+        <header class="card-header">
+            <div class="logo-area">
+                <span class="logo-icon">🏠</span>
+                <div>
+                    <h1>Property Value Estimator</h1>
+                    <p class="subtitle">Bangalore Real Estate Market AI</p>
+                    <p class="subtitle">Random Forest Model</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="card-body">
+            <form id="predictionForm">
+                
+                <div class="section-label">Property Details</div>
+                
+                <div class="grid-2">
+                    <div class="form-group span-2">
+                        <label for="location">Location</label>
+                        <select id="location" name="location" class="form-control">
+                            <option value="" placeholder>Search or select a location...</option>
+                            {% for loc in locations %}
+                            <option value="{{ loc }}">{{ loc }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area_type">Area Type</label>
+                        <select id="area_type" class="form-control" disabled>
+                            <option value="">Select Location First</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zone_name">Zone</label>
+                        <select id="zone_name" class="form-control" disabled>
+                            <option value="">Select Area Type First</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="section-label mt-4">Specifications</div>
+                
+                <div class="grid-4">
+                    <div class="form-group">
+                        <label for="bhk">BHK</label>
+                        <input type="number" id="bhk" value="2" min="1" max="10" class="form-control">
+                    </div>
+                    <div class="form-group span-2">
+                        <label for="total_sqft">Total Sq. Ft.</label>
+                        <input type="number" id="total_sqft" value="1200" min="300" step="10" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="bath">Baths</label>
+                        <input type="number" id="bath" value="2" min="1" max="10" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="balcony">Balcony</label>
+                        <input type="number" id="balcony" value="1" min="0" max="5" class="form-control">
+                    </div>
+                </div>
+
+                <input type="hidden" id="availability" value="Ready To Move">
+
+                <div class="actions">
+                    <button type="submit" id="predictBtn" class="btn-primary">
+                        Calculate Valuation
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="results-panel" id="resultPanel">
+        <div id="loading" class="state-view hidden">
+            <div class="spinner"></div>
+            <p>Analyzing market trends...</p>
+        </div>
+
+        <div id="errorState" class="state-view hidden error">
+            <span class="icon">⚠️</span>
+            <p id="errorMsg">Something went wrong.</p>
+        </div>
+
+        <div id="successState" class="state-view hidden success">
+            <p class="label">Estimated Market Value</p>
+            <h2 id="priceLakhs" class="main-price">--</h2>
+            <div class="price-details">
+                <div class="detail-item">
+                    <span>Crores</span>
+                    <strong id="priceCrores">--</strong>
+                </div>
+                <div class="detail-item">
+                    <span>Price/Sq.Ft</span>
+                    <strong id="pricePerSqft">--</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div id="emptyState" class="state-view">
+            <span class="icon-faded">📊</span>
+            <p>Enter property details to view valuation.</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script>
+    window.datasetCombinations = {{ dataset_json | tojson }};
+</script>
+<script src="static/script.js"></script>
+
+</body>
+</html>

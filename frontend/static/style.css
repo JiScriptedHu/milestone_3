@@ -1,0 +1,192 @@
+:root {
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --primary: #0f172a;
+    --primary-hover: #1e293b;
+    --accent: #3b82f6;
+    --text-main: #334155;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --focus-ring: rgba(59, 130, 246, 0.4);
+    --radius: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+}
+
+.app-wrapper {
+    display: flex;
+    gap: 24px;
+    max-width: 1000px;
+    width: 100%;
+    align-items: flex-start;
+}
+
+/* --- Main Input Card --- */
+.card {
+    flex: 2;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--border);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-icon { font-size: 24px; }
+
+h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.card-body { padding: 32px; }
+
+/* --- Forms --- */
+.section-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.mt-4 { margin-top: 32px; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 2fr 1fr 1fr; gap: 20px; }
+.span-2 { grid-column: span 2; }
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+.form-control, .choices__inner {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--primary);
+    background: #fff;
+    transition: all 0.2s;
+}
+
+.form-control:focus, .choices__inner:focus-within {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--focus-ring);
+}
+
+/* Choices.js Overrides for clean look */
+.choices__inner { min-height: 42px; display: flex; align-items: center; }
+.choices__list--dropdown { border-color: var(--border); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+
+.actions { margin-top: 32px; }
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary);
+    color: white;
+    font-weight: 500;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-primary:disabled { opacity: 0.7; cursor: not-allowed; }
+
+/* --- Results Panel --- */
+.results-panel {
+    flex: 1;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.state-view.hidden { display: none; }
+
+.icon-faded { font-size: 48px; opacity: 0.2; display: block; margin-bottom: 16px; }
+
+/* Success State */
+.success { width: 100%; }
+.label { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+.main-price { 
+    font-size: 32px; 
+    color: var(--primary); 
+    margin: 16px 0 24px; 
+    letter-spacing: -0.5px;
+}
+
+.price-details {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+}
+
+.detail-item { display: flex; flex-direction: column; gap: 4px; }
+.detail-item span { font-size: 12px; color: var(--text-muted); }
+.detail-item strong { font-size: 16px; color: var(--primary); }
+
+/* Loading State */
+.spinner {
+    width: 24px; height: 24px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 12px;
+}
+
+/* Error State */
+.error { color: #ef4444; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Mobile */
+@media (max-width: 768px) {
+    .app-wrapper { flex-direction: column; }
+    .grid-2, .grid-4 { grid-template-columns: 1fr; }
+    .span-2 { grid-column: auto; }
+}
