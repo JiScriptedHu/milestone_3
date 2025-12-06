@@ -10,7 +10,6 @@ A Machine Learning web application that estimates property values in Bangalore u
 
 ## How to Use
 
-### 1. Installation
 1. Allow script execution for the current process
 ```bash
 Set-ExecutionPolicy Unrestricted -Scope Process
